@@ -121,21 +121,7 @@
             transform: scale(1.05);
         }
 
-        .photo-card .photo-info {
-            padding: 20px;
-        }
 
-        .photo-card .photo-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-color);
-            margin-bottom: 8px;
-        }
-
-        .photo-card .photo-desc {
-            font-size: 0.9rem;
-            color: var(--text-light);
-        }
 
         /* Lightbox */
         .lightbox {
@@ -163,13 +149,7 @@
             border-radius: 8px;
         }
 
-        .lightbox .caption {
-            color: white;
-            font-size: 1.2rem;
-            margin-top: 20px;
-            text-align: center;
-            padding: 0 20px;
-        }
+
 
         .lightbox .close-btn {
             position: absolute;
@@ -279,31 +259,30 @@
         <span class="close-btn" onclick="closeLightbox()">&times;</span>
         <span class="nav-btn prev" onclick="changePhoto(-1)">&#10094;</span>
         <img src="" alt="" id="lightboxImg">
-        <p class="caption" id="lightboxCaption"></p>
         <span class="nav-btn next" onclick="changePhoto(1)">&#10095;</span>
     </div>
 
     <footer>
         <div class="container">
-            <p>© 2026 李嘉言 | 黄山旅行相册</p>
+            <p>© 2026 嘉言的旅行日记 | 黄山行</p>
         </div>
     </footer>
 
     <script>
         // Photo data
         const photos = [
-            { src: '黄山行/DSC08336.JPG', title: '黄山迎客松', desc: '黄山标志性景观，千年迎客松' },
-            { src: '黄山行/DSC08374.JPG', title: '云海翻腾', desc: '云雾缭绕的黄山峰林' },
-            { src: '黄山行/DSC08379.JPG', title: '奇峰怪石', desc: '大自然的鬼斧神工' },
-            { src: '黄山行/DSC08399.JPG', title: '山间小径', desc: '徒步登山的蜿蜒山路' },
-            { src: '黄山行/DSC08434.JPG', title: '远山如黛', desc: '层峦叠嶂的壮丽景色' },
-            { src: '黄山行/DSC08445.JPG', title: '松石相依', desc: '奇松与怪石的完美结合' },
-            { src: '黄山行/DSC08447.JPG', title: '云海日出', desc: '晨曦中的黄山云海' },
-            { src: '黄山行/DSC08460.JPG', title: '峰林奇观', desc: '黄山独特的花岗岩峰林' },
-            { src: '黄山行/DSC08491.JPG', title: '山间云雾', desc: '如梦如幻的云雾景观' },
-            { src: '黄山行/DSC08492.JPG', title: '登山途中', desc: '徒步登山的难忘经历' },
-            { src: '黄山行/DSC08498.JPG', title: '峭壁青松', desc: '生长在峭壁上的顽强松树' },
-            { src: '黄山行/DSC08667.JPG', title: '黄山全景', desc: '登高望远的壮丽全景' }
+            '黄山行/DSC08336.JPG',
+            '黄山行/DSC08374.JPG',
+            '黄山行/DSC08379.JPG',
+            '黄山行/DSC08399.JPG',
+            '黄山行/DSC08434.JPG',
+            '黄山行/DSC08445.JPG',
+            '黄山行/DSC08447.JPG',
+            '黄山行/DSC08460.JPG',
+            '黄山行/DSC08491.JPG',
+            '黄山行/DSC08492.JPG',
+            '黄山行/DSC08498.JPG',
+            '黄山行/DSC08667.JPG'
         ];
 
         let currentIndex = 0;
@@ -313,11 +292,7 @@
             const grid = document.getElementById('photoGrid');
             grid.innerHTML = photos.map((photo, index) => `
                 <div class="photo-card fade-in" onclick="openLightbox(${index})">
-                    <img src="${photo.src}" alt="${photo.title}" loading="lazy">
-                    <div class="photo-info">
-                        <div class="photo-title">${photo.title}</div>
-                        <div class="photo-desc">${photo.desc}</div>
-                    </div>
+                    <img src="${photo}" alt="黄山旅行" loading="lazy">
                 </div>
             `).join('');
 
@@ -334,10 +309,8 @@
             currentIndex = index;
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
-            const lightboxCaption = document.getElementById('lightboxCaption');
             
-            lightboxImg.src = photos[index].src;
-            lightboxCaption.textContent = `${photos[index].title} - ${photos[index].desc}`;
+            lightboxImg.src = photos[index];
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -350,10 +323,8 @@
         function changePhoto(direction) {
             currentIndex = (currentIndex + direction + photos.length) % photos.length;
             const lightboxImg = document.getElementById('lightboxImg');
-            const lightboxCaption = document.getElementById('lightboxCaption');
             
-            lightboxImg.src = photos[currentIndex].src;
-            lightboxCaption.textContent = `${photos[currentIndex].title} - ${photos[currentIndex].desc}`;
+            lightboxImg.src = photos[currentIndex];
         }
 
         // Keyboard navigation
