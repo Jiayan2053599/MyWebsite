@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>李嘉言 - Java 后端开发工程师</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --bg-color: #ffffff;
+            --bg-secondary: #f3f4f6;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header .title {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .contact-info a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.9;
+        }
+
+        .contact-info a:hover {
+            opacity: 1;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--bg-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            padding: 15px 0;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+        }
+
+        /* Sections */
+        section {
+            padding: 60px 0;
+        }
+
+        section:nth-child(even) {
+            background: var(--bg-secondary);
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Education & Experience Cards */
+        .card {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: var(--text-color);
+        }
+
+        .card .meta {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .card ul {
+            margin-left: 20px;
+        }
+
+        .card li {
+            margin-bottom: 8px;
+            color: var(--text-color);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .skill-category h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: var(--bg-secondary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+
+        /* Projects */
+        .project {
+            background: white;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .project h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .project .time {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .project .tech-stack {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid var(--bg-secondary);
+        }
+
+        .project .tech-stack span {
+            display: inline-block;
+            background: var(--primary-color);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-size: 0.85rem;
+            margin-right: 8px;
+            margin-bottom: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            section {
+                padding: 40px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>李嘉言</h1>
+            <p class="title">Java 后端开发工程师</p>
+            <div class="contact-info">
+                <a href="tel:18310269260">📱 18310269260</a>
+                <a href="mailto:18310269260@163.com">📧 18310269260@163.com</a>
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#education">教育背景</a></li>
+            <li><a href="#experience">实习经历</a></li>
+            <li><a href="#projects">项目经历</a></li>
+            <li><a href="#skills">专业技能</a></li>
+        </ul>
+    </nav>
+
+    <section id="education">
+        <div class="container">
+            <h2>🎓 教育背景</h2>
+            
+            <div class="card">
+                <h3>布里斯托大学</h3>
+                <p class="meta">2024.09 - 2025.12 | 数据科学 硕士</p>
+                <ul>
+                    <li>2025 QS 排名 51</li>
+                    <li>主修课程：大规模数据工程、可视化分析、人工智能与文本分析、技术创新与社会伦理、软件开发</li>
+                    <li>荣誉奖励：全国大学生大数据技术技能大赛 海外研究生组省级二等奖</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>北方工业大学</h3>
+                <p class="meta">2020.09 - 2024.06 | 数据科学与大数据技术 本科</p>
+                <ul>
+                    <li>GPA: 3.5/4.0 (专业排名前 30%)，英方一等荣誉理学学位</li>
+                    <li>外语能力：CET-6</li>
+                    <li>主修课程：概率统计、机器学习、数据分析与统计编程、程序与数学项目、深度学习</li>
+                    <li>荣誉奖励：2022 年首都大学生市级暑期优秀社会实践团队</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <h2>💼 实习经历</h2>
+            
+            <div class="card">
+                <h3>字节跳动 - 中国区电商业务</h3>
+                <p class="meta">2025.08 - 2025.11 | 数据科学实习 | 北京</p>
+                <ul>
+                    <li><strong>指标体系迭代及异动归因：</strong>优化业务数据监控体系，识别关键指标波动并追溯原因，实现业务异常预警与深度分析</li>
+                    <li><strong>实验设计及评估：</strong>独立完成从实验方案设计到效果评估的全流程，为业务策略迭代提供数据支撑</li>
+                    <li><strong>专项分析：</strong>在优惠券精准投放策略中，结合异质性因果分析方法定位价格敏感人群，有效提升用户留存</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h3>中国工商银行（北京市分行）- 金融科技部</h3>
+                <p class="meta">2023.06 - 2023.10 | 实习生 | 北京</p>
+                <ul>
+                    <li><strong>端到端数据管道：</strong>通过 Python 爬取公开数据，经 MySQL + 百度地图 API 处理，参与开发银行对公多功能营销可视化交互大屏</li>
+                    <li><strong>平台功能：</strong>网点分布与区域统计、网点智慧管理、客户服务覆盖范围展示、基于 LBS 技术的最优路线规划</li>
+                    <li><strong>成果汇报：</strong>输出《基于 LBS 技术在数字银行平台中功能延展的应用》专业报告，获得部门领导一致认可</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>🚀 项目经历</h2>
+            
+            <div class="project">
+                <h3>掌上银行 AI 云账户项目</h3>
+                <p class="time">2024.05 - 2024.09</p>
+                <p>基于 Spring Boot 构建的银行应用后端系统，支持用户账户、资金转账、数据对账、AI 智能助手等核心功能。</p>
+                <ul>
+                    <li><strong>全局异常处理：</strong>使用@ControllerAdvice 统一捕获和处理异常，提供一致的错误响应结构</li>
+                    <li><strong>用户登录鉴权：</strong>基于拦截器和 ThreadLocal 实现登录用户信息传递，确保安全性和用户体验</li>
+                    <li><strong>离线对账与实时对接：</strong>定时任务处理离线对账，通过 SSE 技术异步对接大模型实现实时对账</li>
+                    <li><strong>交易稳定性：</strong>利用 Redis 分布式锁和事务机制确保交易原子性，通过 Token 防止重复提交</li>
+                    <li><strong>智能财务助手：</strong>集成 SSE 技术与大模型，提供实时智能财务咨询服务</li>
+                    <li><strong>全局唯一 ID 生成器：</strong>使用 Redisson 实现雪花算法，支持高并发场景下的 ID 生成</li>
+                </ul>
+                <div class="tech-stack">
+                    <span>Spring Boot</span>
+                    <span>MySQL</span>
+                    <span>MyBatis</span>
+                    <span>Redis</span>
+                    <span>分布式锁</span>
+                    <span>雪花算法</span>
+                    <span>SSE</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2>🛠️ 专业技能</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>编程语言</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">SQL</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>后端框架</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Spring</span>
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">MyBatis</span>
+                        <span class="skill-tag">Spring AOP</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>数据库 & 缓存</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Redis</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>网络 & 协议</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">TCP/IP</span>
+                        <span class="skill-tag">HTTP/HTTPS</span>
+                        <span class="skill-tag">WebSocket</span>
+                        <span class="skill-tag">SSE</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>开发工具</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Maven</span>
+                        <span class="skill-tag">Postman</span>
+                        <span class="skill-tag">Swagger</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3>核心能力</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">分布式锁</span>
+                        <span class="skill-tag">事务管理</span>
+                        <span class="skill-tag">高并发处理</span>
+                        <span class="skill-tag">大模型对接</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 李嘉言 | 期待与您共创价值</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll animation to cards
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.card, .project').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+    </script>
+</body>
+</html>
