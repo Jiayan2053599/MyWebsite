@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>黄山行 - 李嘉言的旅行相册</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #2563eb;
+            --accent-color: #3b82f6;
+            --text-color: #1f2937;
+            --text-light: #6b7280;
+            --bg-color: #ffffff;
+            --bg-secondary: #f3f4f6;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-color);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: var(--bg-gradient);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 25px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Gallery Info */
+        .gallery-info {
+            text-align: center;
+            padding: 50px 0;
+            background: var(--bg-secondary);
+        }
+
+        .gallery-info h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .gallery-info p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Photo Grid */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            padding: 50px 0;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .photo-card .photo-info {
+            padding: 20px;
+        }
+
+        .photo-card .photo-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+        }
+
+        .photo-card .photo-desc {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 80vh;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+
+        .lightbox .caption {
+            color: white;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .lightbox .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .lightbox .close-btn:hover {
+            transform: scale(1.2);
+        }
+
+        .lightbox .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            color: white;
+            cursor: pointer;
+            padding: 20px;
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .lightbox .nav-btn:hover {
+            color: var(--accent-color);
+        }
+
+        .lightbox .prev {
+            left: 20px;
+        }
+
+        .lightbox .next {
+            right: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .photo-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+
+            .lightbox .nav-btn {
+                font-size: 2rem;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🏔️ 黄山行</h1>
+            <p class="subtitle">2025 年 · 追寻云海与奇松</p>
+            <a href="index.html" class="back-btn">← 返回个人主页</a>
+        </div>
+    </header>
+
+    <section class="gallery-info">
+        <div class="container">
+            <h2 class="fade-in">五岳归来不看山，黄山归来不看岳</h2>
+            <p class="fade-in">
+                黄山以其奇松、怪石、云海、温泉"四绝"著称于世。
+                这次旅行记录了黄山的壮丽景色和难忘瞬间。
+            </p>
+        </div>
+    </section>
+
+    <section>
+        <div class="container">
+            <div class="photo-grid" id="photoGrid">
+                <!-- Photos will be loaded here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <span class="nav-btn prev" onclick="changePhoto(-1)">&#10094;</span>
+        <img src="" alt="" id="lightboxImg">
+        <p class="caption" id="lightboxCaption"></p>
+        <span class="nav-btn next" onclick="changePhoto(1)">&#10095;</span>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 李嘉言 | 黄山旅行相册</p>
+        </div>
+    </footer>
+
+    <script>
+        // Photo data
+        const photos = [
+            { src: '黄山行/DSC08336.JPG', title: '黄山迎客松', desc: '黄山标志性景观，千年迎客松' },
+            { src: '黄山行/DSC08374.JPG', title: '云海翻腾', desc: '云雾缭绕的黄山峰林' },
+            { src: '黄山行/DSC08379.JPG', title: '奇峰怪石', desc: '大自然的鬼斧神工' },
+            { src: '黄山行/DSC08399.JPG', title: '山间小径', desc: '徒步登山的蜿蜒山路' },
+            { src: '黄山行/DSC08434.JPG', title: '远山如黛', desc: '层峦叠嶂的壮丽景色' },
+            { src: '黄山行/DSC08445.JPG', title: '松石相依', desc: '奇松与怪石的完美结合' },
+            { src: '黄山行/DSC08447.JPG', title: '云海日出', desc: '晨曦中的黄山云海' },
+            { src: '黄山行/DSC08460.JPG', title: '峰林奇观', desc: '黄山独特的花岗岩峰林' },
+            { src: '黄山行/DSC08491.JPG', title: '山间云雾', desc: '如梦如幻的云雾景观' },
+            { src: '黄山行/DSC08492.JPG', title: '登山途中', desc: '徒步登山的难忘经历' },
+            { src: '黄山行/DSC08498.JPG', title: '峭壁青松', desc: '生长在峭壁上的顽强松树' },
+            { src: '黄山行/DSC08667.JPG', title: '黄山全景', desc: '登高望远的壮丽全景' }
+        ];
+
+        let currentIndex = 0;
+
+        // Load photos
+        function loadPhotos() {
+            const grid = document.getElementById('photoGrid');
+            grid.innerHTML = photos.map((photo, index) => `
+                <div class="photo-card fade-in" onclick="openLightbox(${index})">
+                    <img src="${photo.src}" alt="${photo.title}" loading="lazy">
+                    <div class="photo-info">
+                        <div class="photo-title">${photo.title}</div>
+                        <div class="photo-desc">${photo.desc}</div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Observe animations
+            setTimeout(() => {
+                document.querySelectorAll('.fade-in').forEach(el => {
+                    el.classList.add('visible');
+                });
+            }, 100);
+        }
+
+        // Lightbox functions
+        function openLightbox(index) {
+            currentIndex = index;
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            
+            lightboxImg.src = photos[index].src;
+            lightboxCaption.textContent = `${photos[index].title} - ${photos[index].desc}`;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function changePhoto(direction) {
+            currentIndex = (currentIndex + direction + photos.length) % photos.length;
+            const lightboxImg = document.getElementById('lightboxImg');
+            const lightboxCaption = document.getElementById('lightboxCaption');
+            
+            lightboxImg.src = photos[currentIndex].src;
+            lightboxCaption.textContent = `${photos[currentIndex].title} - ${photos[currentIndex].desc}`;
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            const lightbox = document.getElementById('lightbox');
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') changePhoto(-1);
+            if (e.key === 'ArrowRight') changePhoto(1);
+        });
+
+        // Close lightbox on background click
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+        });
+
+        // Initialize
+        loadPhotos();
+    </script>
+</body>
+</html>
