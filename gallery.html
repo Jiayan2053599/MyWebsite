@@ -269,30 +269,30 @@
     </footer>
 
     <script>
-        // Photo data
+        // Photo data - use thumbnails for grid, full size for lightbox
         const photos = [
-            '黄山行/DSC08336.JPG',
-            '黄山行/DSC08374.JPG',
-            '黄山行/DSC08379.JPG',
-            '黄山行/DSC08399.JPG',
-            '黄山行/DSC08434.JPG',
-            '黄山行/DSC08445.JPG',
-            '黄山行/DSC08447.JPG',
-            '黄山行/DSC08460.JPG',
-            '黄山行/DSC08491.JPG',
-            '黄山行/DSC08492.JPG',
-            '黄山行/DSC08498.JPG',
-            '黄山行/DSC08667.JPG'
+            { thumb: '黄山行/thumbs/DSC08336.jpg', full: '黄山行/DSC08336.JPG' },
+            { thumb: '黄山行/thumbs/DSC08374.jpg', full: '黄山行/DSC08374.JPG' },
+            { thumb: '黄山行/thumbs/DSC08379.jpg', full: '黄山行/DSC08379.JPG' },
+            { thumb: '黄山行/thumbs/DSC08399.jpg', full: '黄山行/DSC08399.JPG' },
+            { thumb: '黄山行/thumbs/DSC08434.jpg', full: '黄山行/DSC08434.JPG' },
+            { thumb: '黄山行/thumbs/DSC08445.jpg', full: '黄山行/DSC08445.JPG' },
+            { thumb: '黄山行/thumbs/DSC08447.jpg', full: '黄山行/DSC08447.JPG' },
+            { thumb: '黄山行/thumbs/DSC08460.jpg', full: '黄山行/DSC08460.JPG' },
+            { thumb: '黄山行/thumbs/DSC08491.jpg', full: '黄山行/DSC08491.JPG' },
+            { thumb: '黄山行/thumbs/DSC08492.jpg', full: '黄山行/DSC08492.JPG' },
+            { thumb: '黄山行/thumbs/DSC08498.jpg', full: '黄山行/DSC08498.JPG' },
+            { thumb: '黄山行/thumbs/DSC08667.jpg', full: '黄山行/DSC08667.JPG' }
         ];
 
         let currentIndex = 0;
 
-        // Load photos
+        // Load photos with lazy loading
         function loadPhotos() {
             const grid = document.getElementById('photoGrid');
             grid.innerHTML = photos.map((photo, index) => `
                 <div class="photo-card fade-in" onclick="openLightbox(${index})">
-                    <img src="${photo}" alt="黄山旅行" loading="lazy">
+                    <img src="${photo.thumb}" alt="黄山旅行" loading="lazy" decoding="async">
                 </div>
             `).join('');
 
@@ -310,7 +310,10 @@
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
             
-            lightboxImg.src = photos[index];
+            // Show loading state
+            lightboxImg.style.opacity = '0.5';
+            lightboxImg.src = photos[index].full;
+            lightboxImg.onload = () => { lightboxImg.style.opacity = '1'; };
             lightbox.classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -324,7 +327,10 @@
             currentIndex = (currentIndex + direction + photos.length) % photos.length;
             const lightboxImg = document.getElementById('lightboxImg');
             
-            lightboxImg.src = photos[currentIndex];
+            // Show loading state
+            lightboxImg.style.opacity = '0.5';
+            lightboxImg.src = photos[currentIndex].full;
+            lightboxImg.onload = () => { lightboxImg.style.opacity = '1'; };
         }
 
         // Keyboard navigation
